@@ -11,13 +11,14 @@ const ProductListPage = () => {
     const navigate = useNavigate();
     const [product, setProduct] =React.useState([]);
     const [category, setCategory] = React.useState([]);
+    const [key, setKey] = React.useState("");
 
     const token = localStorage.getItem('token');
     console.log(token);
     React.useEffect(async () => {
         const tokenAuth = localStorage.getItem("authToken");
         if(!tokenAuth) {
-            navigate("/product");
+            navigate("/login");
         }
         const config = {
             headers: {
@@ -42,6 +43,15 @@ const ProductListPage = () => {
             console.log(category);
         })
     }, [])
+    const handleOnChangeInput = (e)=>{
+        const {value} = e.target;
+        setKey(value);
+        console.log(key);
+    }
+    const handleOnSubmit = (e)=>{
+        e.preventDefault();
+        navigate(`/search?q=${key}`);
+    }
 
 
     return(
@@ -57,8 +67,16 @@ const ProductListPage = () => {
                     </div>
                     <div id="search" className="col-lg-6 col-md-6 col-sm-12">
                     <form className="form-inline">
-                        <input className="form-control mt-3" type="search" placeholder="Tìm kiếm" aria-label="Search" />
-                        <button className="btn btn-danger mt-3" type="submit">Tìm kiếm</button>
+                        <input 
+                        onChange={handleOnChangeInput}
+                        className="form-control mt-3" 
+                        type="search" placeholder="Tìm kiếm"
+                        value={key} 
+                        aria-label="Search" />
+                        <button 
+                        onClick={handleOnSubmit}
+                        className="btn btn-danger mt-3" 
+                        type="submit">Tìm kiếm</button>
                     </form>
 
                     </div>
@@ -82,9 +100,9 @@ const ProductListPage = () => {
                         <div id="menu" className="collapse navbar-collapse">
                         <ul>
                             {
-                                category.map((category)=> {
+                                category.map((category, i)=> {
                                     return(
-                                        <li className="menu-item"><a href={`/product-category-${category._id}`}>{category.title}</a></li>
+                                        <li key={i} className="menu-item"><a href={`/category/${category._id}/product`}>{category.title}</a></li>
                                     )
                                 })
                             }
@@ -104,8 +122,8 @@ const ProductListPage = () => {
                         <div className="product-list card-deck">
                         <div className="card-deck">
                             {
-                                product.map((product) => {
-                                    return <ProductItem item = {product}/>
+                                product.map((product, i) => {
+                                    return <ProductItem key={i} item = {product}/>
                                 })
                             }
                             

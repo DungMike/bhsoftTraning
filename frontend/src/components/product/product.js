@@ -10,7 +10,7 @@ const ProductItem = ({item}) => {
             <div className="card-body ">
                 <a href={`/product/details/${item._id}`}>{item.name}</a> <span>{item.price}$</span> 
                 <br/>
-                <a href={`/category-${item.cate_id}/product`}>{item.cate}</a>
+                <a href={`/category/${item.cate_id}/product`}>{item.cate}</a>
                 <p className="card-text"><small className="text-muted">
                     <img src="https://img.icons8.com/ios-glyphs/20/000000/star--v1.png" />
                     <img src="https://img.icons8.com/ios-glyphs/20/000000/star--v1.png" />

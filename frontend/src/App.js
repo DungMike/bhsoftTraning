@@ -11,7 +11,7 @@ import ProductEditPage from './pages/productEdit';
 import ProductListPage from './pages/productList';
 import ProductNewPage from './pages/productNew';
 import CategoryPage from './pages/category';
-
+import ProductListSearch from './pages/search';
 const App = () =>{
   return(
     <Router>
@@ -19,13 +19,14 @@ const App = () =>{
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/register" element={<RegisterPage/>} />
 
-        <Route exact path="/product" element={<ProductListPage/>} />
+        <Route exact path="/" element={<ProductListPage/>} />
         <Route exact path="/product/new" element={<ProductNewPage/>} />
 
         {/* <Route path="/category-:id" element={<CategoryPage/>} /> */}
         <Route path="/product/details/:id" element={<ProductDetailPage/>} />
         <Route path="/product/edit/:id" element={<ProductEditPage/>} />
-        <Route path="/product/category/:id" element={<CategoryPage/>} />
+        <Route path="/category/:id/product/" element={<CategoryPage/>} />
+        <Route path="/search" element={<ProductListSearch/>} />
       </Routes>
     </Router>
   )

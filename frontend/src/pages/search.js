@@ -3,28 +3,48 @@ import React from "react";
 import { getProductBySearch } from "../api/api";
 import { getCategories } from "../api/api";
 import ProductItem from "../components/product/product";
+import queryString from "query-string";
+
+// import {push} from 'react-router-redux';
+// import qs from 'querystring'
+import { Link,useNavigate } from "react-router-dom";
 
 require('../css/productList.css');
 
-const ProductListPage = () => {
+const ProductListSearch = (props) => {
+
+    const key = queryString.parse(window.location.search).q;
+    console.log(key);
+
+    const navigate = useNavigate();
+
+    
     const [product, setProduct] =React.useState([]);
     const [category, setCategory] = React.useState([]);
-
-    console.log(token);
+    // const [key, setKey] = React.useState("");
     React.useEffect(async () => {
         
         
-        getProductBySearch()
-            .then((res) => {
-                setProduct(res.data);
-            });
+        getProductBySearch(key, {}).then((res)=>{
+            setProduct(res.data);
+            console.log(res.data)
+        })
         getCategories().then((res) => {
             setCategory(res.data);
         })
     }, [])
-
+    // const handleOnChangeInput = (e)=>{
+    //     const {value} = e.target;
+    //     setKey(value);
+    //     console.log(key);
+    // }
+    // const handleOnSubmit = (e)=>{
+    //     e.preventDefault();
+    //     navigate.push(`/search?q=${key}`);
+    // }
 
     return(
+
         <div>
             <div id="header">
                 <div className="container">
@@ -36,10 +56,7 @@ const ProductListPage = () => {
                     <button style={{width: 50, borderRadius: 5}}><a href="/product/new">New</a></button>
                     </div>
                     <div id="search" className="col-lg-6 col-md-6 col-sm-12">
-                    <form className="form-inline">
-                        <input className="form-control mt-3" type="search" placeholder="Tìm kiếm" aria-label="Search" />
-                        <button className="btn btn-danger mt-3" type="submit">Tìm kiếm</button>
-                    </form>
+                    
 
                     </div>
                     <div id="cart" className="col-lg-3 col-md-3 col-sm-12">
@@ -145,4 +162,4 @@ const ProductListPage = () => {
 
     )
 }
-export default ProductListPage;
+export default ProductListSearch;

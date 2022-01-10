@@ -14,7 +14,7 @@ export const postRegister = ( data) => {
 
 // products
 export const postNewProduct = (data) => {
-    return Http.post("/product/new")
+    return Http.post("/product/new", data)
 }
 export const postEditProduct = (data, id) => {
     return Http.post(`/product/edit/${id}`)
@@ -26,7 +26,7 @@ export const getProductDetail = (id) => {
     return Http.get(`/product/details/${id}`)
 }
 export const getProductBySearch= (q) => {
-    return Http.get(`/product/search`)
+    return Http.get(`/product/search?q=${q}`)
 }
 export const deleteProduct = (id) => {
     return Http.delete(`/product/delete/${id}`)

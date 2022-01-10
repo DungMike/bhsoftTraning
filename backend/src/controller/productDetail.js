@@ -40,55 +40,74 @@ const postComment = async (req, res) => {
     
 
     const id = req.params.id;
-    const {body, email, star} = req.body;
-    // posst comnent and star  
+    console.log(id);
+
     const newComment = await commentModel.create({
-      email: email,
-      body: body,
+      email: req.body.email,
+      body: req.body.body,
       // date: date,
-       star: star,
+      star: req.body.star,
       prd_id: id
     });
     // query ra các cmt, tong hop lai thanh 1 arr
-    const newStar = await commentModel.find({prd_id: id}, (err, data) => {
-      const arrStar = [];
-      for(item of data) {
-        arrStar.push(item.star);
-      }
-      console.log(arrStar);
-      return arrStar;
-      
-      
-    });
+    // doc lai async. khi await rooif thi khong callback
+    // tinh trung binh co trong mongo
+    
     // viet ham tinh trung binh cong
+    // chi dung 1 trong 2. calback hoac await
+
+    // const fnMediumStar = (x) => {
+    //   var mediumStar = 0 ;
+    //   for(let i = 0; i< x.length ; i++){
+    //     mediumStar = mediumStar + x[i];
+    //   }
+    //   return (mediumStar/(x.length)).toFixed(2);
+    // }  
+    // // thuc thi ham trung binh cong voi bien la cac star trong comment
+
+    // let starUpdated = fnMediumStar(newStar);
+    //  console.log(starUpdated);
+
+
+     // update star cho product
+     
+    // const productRated = await productModel.updateOne(
+    //   { _id: id}, 
+    //   { $set: {star:newStar } }
+    // );
+
+    // console.log(newComment, productRated);
+    // tinh lai so sao roi moi hien thi product
+
+    const arrProd = await commentModel.find({prd_id: id});
+    var arrStar = []
+    // tao 1 arr cac star cua prd
+    for( let i = 0; i < arrProd.length; i++) {
+      arrStar.push(arrProd[i].star);
+    }
+    console.log(arrStar);
+    // ham tinh trung binh co ng cua 1 mang
     const fnMediumStar = (x) => {
       var mediumStar = 0 ;
       for(let i = 0; i< x.length ; i++){
         mediumStar = mediumStar + x[i];
       }
-      return (mediumStar/(x.length)).toFixed(2);
-      console.log(mediumStar);
-    }  
-    // thuc thi ham trung binh cong voi bien la cac star trong comment
+      return parseInt(((mediumStar/(x.length))));
+    } 
+    const newStar = fnMediumStar(arrStar);
+    console.log(newStar)
 
-    let starUpdated = fnMediumStar(newStar);
-     console.log(starUpdated);
-
-     // 
-
-
-     // update star cho product
-    const productRated = await productModel.updateOne(
-      {_id: id}, 
-      { $set: {star:starUpdated } }, (err, data) => {
-        console.log(data);
+    const updatedStarProduct =await productModel.updateOne({
+      id: id
+    },
+    {
+      $set: {
+        star: newStar
       }
-    );
+    } 
+    )
 
-    console.log(newComment, productRated);
-
-
-    return res.status(200).json(newComment,productrated );  
+    return res.status(200).json(newComment);  
   }
   catch(err) {
     console.log(err)

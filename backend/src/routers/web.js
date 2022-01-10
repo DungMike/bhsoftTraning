@@ -24,12 +24,12 @@ router.post("/register", register.postRegister);
 //category
 router.post("/category/new",newCategory.newCategory );
 router.get("/categories",newCategory.getAllCate )
-router.get("/category/:id/product")
+router.get("/category/:id/product", home.getProductByCategory)
 // product
 router.post("/product/new",newProduct.uploadImg, newProduct.newProduct );
 router.get("/product"  ,auth.verifyToken, home.getAllProduct )
 router.delete("/product/delete/:id", detail.deleteOneProduct );
-router.post("/product/edit/:id", newProduct.uploadImg, edit.editProduct);
+router.put("/product/edit/:id", newProduct.uploadImg, edit.editProduct);
 router.get("/product/details/:id", detail.getProductDetail)
 router.get("/product/search",home.searchProduct )
 // router.get("/product/category-:id",home.getProductByCategory );

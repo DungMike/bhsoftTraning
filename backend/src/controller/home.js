@@ -1,6 +1,10 @@
 const productModel = require("../models/product");
+const commentModel = require("../models/comments");
+
 
 const getAllProduct = (req, res) => {
+
+
     productModel.find({}, (err, data) => {
         if (err) {
             return res.json("Something is wrong. Please contact admin.");
@@ -19,7 +23,7 @@ const getProductByCategory = (req, res) => {
     })
 }
 const searchProduct = (req, res) => {
-    const key = req.query.key;
+    const key = req.query.q;
     console.log(key);
     if(!key || key ===""){
         return res.status(400).json("key is empty")
@@ -29,10 +33,9 @@ const searchProduct = (req, res) => {
     
     productModel.find({
         name: {$regex: key}
-    }
-            , (err, data) => {
-                                if(err) {
-                                    return res.status(400).json("some thing wrong");
+    }, (err, data) => {
+        if(err) {
+        return res.status(400).json("some thing wrong");
                                 }
 
         console.log(data);

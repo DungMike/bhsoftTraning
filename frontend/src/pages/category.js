@@ -37,7 +37,7 @@ const CategoryPage = () => {
                     <a href="/">
                     <h4>Product list</h4>
                     </a>
-                    <button style={{width: 50, borderRadius: 5}}><a href="/new">New</a></button>
+                    <button style={{width: 50, borderRadius: 5}}><a href="/product/new">New</a></button>
                     </div>
                     <div id="search" className="col-lg-6 col-md-6 col-sm-12">
                     <form className="form-inline">
@@ -66,7 +66,7 @@ const CategoryPage = () => {
                             {
                                 category.map((category)=> {
                                     return(
-                                        <li className="menu-item"><a href={`/product-category-${category._id}`}>{category.title}</a></li>
+                                        <li className="menu-item"><a href={`/category/${category._id}/product`}>{category.title}</a></li>
                                     )
                                 })
                             }

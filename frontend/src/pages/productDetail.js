@@ -77,26 +77,7 @@ const ProductDetailPage = () => {
             </div>
             <div className="all-review">
                 <h5>All review</h5>
-                <div className="review">
-                    <div className="user" style={{display: 'flex'}}>
-                        <div className="ratering" style={{padding: 10}}>                        
-                        <img src="https://img.icons8.com/ios-glyphs/20/000000/star--v1.png" />
-                        <img src="https://img.icons8.com/ios-glyphs/20/000000/star--v1.png" />
-                        <img src="https://img.icons8.com/ios-glyphs/20/000000/star--v1.png" />
-                        <img src="https://img.icons8.com/ios-glyphs/20/000000/star--v1.png" />
-                        <img src="https://img.icons8.com/ios-glyphs/20/000000/star--v1.png" />
-                        </div>
-                        <div className="mail" style={{padding: 10}}>
-                        <p>hivk15c3@gmail.com</p>
-                        </div>
-                        <div className="mail" style={{padding: 10}}>
-                        <p>DD/MM/YYYY</p>
-                        </div>
-                    </div>
-                    <div className="review-content">
-                        <p>Sản phầm không tốt lắm, uống nhiều bị say, Sản phầm không tốt lắm, uống nhiều bị saySản phầm không tốt lắm, uống nhiều bị saySản phầm không tốt lắm, uống nhiều bị saySản phầm không tốt lắm, uống nhiều bị say </p>
-                    </div>
-                </div>
+                
                 {
                     comment.map((comment)=> {
                         return (
